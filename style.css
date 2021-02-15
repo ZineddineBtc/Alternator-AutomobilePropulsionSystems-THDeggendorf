@@ -51,14 +51,18 @@ h1 {
 #circle {
   width: 300px;
   height: 300px;
-  border: 1px #212529 solid;
-  border-radius: 50%;
   margin: 3% auto;
+  background-image: url("images/bg-angles.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
 }
 #arrow {
-  margin-top: 110px;
-  width: 250px;
-  height: 60px;
+  margin-top: 130px;
+  margin-left: 5px;
+  width: 220px;
+  height: 40px;
+  opacity: 0.8;
 }
 .adjust-angle, .adjust-rotation {
   padding: 1% 15%;
