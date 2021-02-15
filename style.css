@@ -1,0 +1,143 @@
+#header-section{
+  background-color: #212529;
+}
+#global-container-fluid{
+  padding: 3% 15%;
+}
+#nav-brand{
+  font-family: "Ubuntu";
+  font-size: 2.5rem;
+}
+#navbar{
+  padding: 0 0 3.5rem;
+}
+.nav-item{
+  padding: 0 10px;
+}
+.link-navbar{
+  font-size: 1.2rem;
+  font-family: "Montserrat";
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.5rem;
+  font-weight: bolder;
+  color: white;
+  line-height: 1.5;
+  padding-bottom: 3.5rem;
+}
+#middle-section {
+  padding: 3% 7%;
+  text-align: center;
+}
+.my-form {
+  display: flex;
+  align-items: center;
+  padding: 0 15% 3%;
+}
+.initial-val {
+  margin: 5px 0;
+  text-align: center;
+}
+.adjust-display {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.adjust {
+  align-items: center;
+}
+#circle {
+  width: 300px;
+  height: 300px;
+  border: 1px #212529 solid;
+  border-radius: 50%;
+  margin: 3% auto;
+}
+#arrow {
+  margin-top: 110px;
+  width: 250px;
+  height: 60px;
+}
+.adjust-angle, .adjust-rotation {
+  padding: 1% 15%;
+}
+.radio-group {
+  margin-bottom: 10px;
+}
+#input-angle {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.adjust-btn {
+  width: 100%;
+}
+.rotation-btn {
+  width: 100%;
+}
+.assigned-vector-table {
+  padding: 5% 7%;
+  margin-bottom: 40px;
+  color: #212529;
+  text-align: center;
+}
+.base-vectors-table {
+  padding: 5% 7%;
+  margin-bottom: 40px;
+  background-color: #212529;
+  text-align: center;
+}
+.theory {
+  padding: 7% 15% 2%;
+}
+.col-base-vectors-img {
+  text-align: center;
+}
+.base-vectors-img {
+  width: 80%;
+  margin: 5% auto;
+}
+.theory-img{
+  padding: 0 15% 7%;
+  text-align: center;
+}
+.alternator-img {
+  width: 70%;
+}
+h2 {
+  color: #212529;
+  padding-bottom: 20px;
+}
+p {
+  color: #212529;
+}
+#footer {
+  background-color: #212529;
+  text-align: center;
+  padding: 7%;
+}
+.socials-link {
+  padding: 10px;
+  text-decoration: none;
+  color: #fff;
+}
+.socials-link:hover {
+  text-decoration: underline;
+}
+#copyright{
+  margin-top: 50px;
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .link-navbar, h1, .title-img-div {
+    text-align: center;
+  }
+  .theory-img{
+    padding: 0 10% 7%;
+    text-align: center;
+  }
+  .alternator-img {
+    width: 100%;
+  }
+}

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>SVM</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Ubuntu&display=swap" rel="stylesheet">
+
+  <!-- Google charts -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+</head>
+
+<body>
+  <section id="header-section">
+    <div class="container-fluid" id="global-container-fluid">
+      <!-- Nav Bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+        <div class="container-fluid" style="padding:0;">
+          <a class="navbar-brand" id="nav-brand" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/zneddine-bettouche">ZineddineBtc</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link link-navbar" href="#footer">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link-navbar" href="#theory-part">Theory</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link link-navbar" target="_blank" rel="noopener noreferrer" href="https://www.th-deg.de">TH Deggendorf</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Title -->
+      <div class="row title-row">
+        <div class="col-lg-6" class="title">
+          <h1>Alternator</h1>
+        </div>
+        <div class="col-lg-6 title-img-div">
+          <img src="images/alternator.png" alt="alternator" class="title-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="middle-section" class="container-fluid">
+    <form>
+      <div class="row my-form">
+        <div class="form-group col-md-4">
+          <label for="t-cycle">T-cycle (µs)</label>
+          <input type="number" class="form-control text-white bg-dark initial-val" id="t-cycle" placeholder="T-cycle (µs)">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="voltage">Voltage (V)</label>
+          <input type="number" class="form-control text-white bg-dark initial-val" id="voltage" placeholder="Voltage (V)">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="max-voltage">Max Voltage (V)</label>
+          <input type="number" class="form-control text-white bg-dark initial-val" id="max-voltage" placeholder="Max Voltage (V)">
+        </div>
+      </div>
+    </form>
+    <div class="row adjust-display">
+      <div class="col-lg-4 adjust">
+        <div id="circle">
+          <img id="arrow" src="images/arrow.png" alt="">
+        </div>
+
+        <div class="btn-group radio-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio" id="btn-angle" autocomplete="off" value="angle" checked>
+          <label class="btn btn-outline-dark" for="btn-angle">Angle</label>
+          <input type="radio" class="btn-check" name="btnradio" id="btn-rotation" autocomplete="off" value="rotation">
+          <label class="btn btn-outline-dark" for="btn-rotation">Rotation</label>
+        </div>
+
+        <div class="adjust-angle">
+          <input type="number" class="form-control" id="input-angle">
+          <div class="row adjust-row">
+            <div class="col-6">
+              <button type="button" class="btn btn-outline-dark btn-lg adjust-btn" id="decrement">-</button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-dark btn-lg adjust-btn" id="increment">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="adjust-rotation">
+          <div class="row rotation-row">
+            <div class="col-6">
+              <button type="button" class="btn btn-danger btn-lg rotation-btn stop">STOP</button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-dark btn-lg rotation-btn rotate">ROTATE</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-8 display-graph">
+        <div id="L1" style="width: 100%; height: 20%;"></div>
+        <div id="L2" style="width: 100%; height: 20%;"></div>
+        <div id="L3" style="width: 100%; height: 20%;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="assigned-vector-table">
+    <table class="table table-bordered table-striped">
+      <tbody>
+        <tr>
+          <th scope="row">Vectors</th>
+          <td>U0</td>
+          <td class="xn">Ux</td>
+          <td class="yn">Uy</td>
+          <td>U7</td>
+        </tr>
+        <tr>
+          <th scope="row">Interval end (µs)</th>
+          <td class="u0-1">0.2</td>
+          <td class="ux-1">0.4</td>
+          <td class="uy-1">0.6</td>
+          <td class="u7-1">0.7</td>
+        </tr>
+        <tr>
+          <th scope="row">Vectors</th>
+          <td>U7</td>
+          <td class="yn">Uy</td>
+          <td class="xn">Ux</td>
+          <td>U0</td>
+        </tr>
+        <tr>
+          <th scope="row">Interval end (µs)</th>
+          <td class="u7-2">0.8</td>
+          <td class="uy-2">0.9</td>
+          <td class="ux-2">1.0</td>
+          <td class="u0-2">1.2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="base-vectors-table">
+    <table class="table table-dark table-borderless">
+      <tbody>
+        <tr>
+          <th scope="row">L1</th>
+          <td>L</td>
+          <td>H</td>
+          <td>H</td>
+          <td>L</td>
+          <td>L</td>
+          <td>L</td>
+          <td>H</td>
+          <td>H</td>
+        </tr>
+        <tr>
+          <th scope="row">L2</th>
+          <td>L</td>
+          <td>L</td>
+          <td>H</td>
+          <td>H</td>
+          <td>H</td>
+          <td>L</td>
+          <td>L</td>
+          <td>H</td>
+        </tr>
+        <tr>
+          <th scope="row">L3</th>
+          <td>L</td>
+          <td>L</td>
+          <td>L</td>
+          <td>L</td>
+          <td>H</td>
+          <td>H</td>
+          <td>H</td>
+          <td>H</td>
+        </tr>
+        <tr>
+          <th scope="row">Angle</th>
+          <td></td>
+          <td>0°</td>
+          <td>60°</td>
+          <td>120°</td>
+          <td>180°</td>
+          <td>240°</td>
+          <td>300°</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Vector</th>
+          <td>u0</td>
+          <td>u1</td>
+          <td>u2</td>
+          <td>u3</td>
+          <td>u4</td>
+          <td>u5</td>
+          <td>u6</td>
+          <td>u7</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row theory" id="theory-part">
+    <div class="col-md-4 col-base-vectors-img">
+      <img src="images/background-vectors.PNG" alt="" class="base-vectors-img">
+    </div>
+    <div class="col-md-8">
+      <h2>Base Space Vectors</h2>
+      <p>
+        Space vector modulation (SVM) is an algorithm for the control of pulse width modulation (PWM). It is used for the creation of alternating current (AC) waveforms; most commonly to drive 3 phase AC powered motors at varying speeds from DC using multiple class-D amplifiers. There are variations of SVM that result in different quality and computational requirements. One active area of development is in the reduction of total harmonic distortion (THD) created by the rapid switching inherent to these algorithms.
+        To implement space vector modulation, a reference signal Vref is sampled with a frequency fs (Ts = 1/fs). The reference vector is synthesized using a combination of the two adjacent active switching vectors and one or both of the zero vectors. Various strategies of selecting the order of the vectors and which zero vector(s) to use exist. Strategy selection will affect the harmonic content and the switching losses.
+      </p>
+    </div>
+  </div>
+  <div class="theory-img">
+    <img src="images/image.png" alt="" class="alternator-img">
+  </div>
+
+  <footer id="footer">
+    <div class="socials">
+      <a class="socials-link" href="mailto:zineddine.bettouche.inbox@gmail.com">Gmail</a>
+      <a class="socials-link" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/zineddine.bettouche">Facebook</a>
+      <a class="socials-link" target="_blank" rel="noopener noreferrer" href="https://www.twitter.com/ZineddineBtc">Twitter</a>
+      <a class="socials-link" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/zneddine-bettouche">LinkedIn</a>
+      <a class="socials-link"target="_blank" rel="noopener noreferrer" href="https://www.github.com/ZineddineBtc">GitHub</a>
+    </div>
+    <p id="copyright">© Copyright 2021 Zineddine Bettouche</p>
+
+  </footer>
+
+
+
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+  <!-- jQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- My jQuery -->
+  <script type="text/javascript" src="index.js"></script>
+</body>
+
+</html>
