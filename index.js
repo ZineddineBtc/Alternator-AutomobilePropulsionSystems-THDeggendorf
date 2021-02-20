@@ -1,4 +1,5 @@
 $(".rotation-row").css("display", "none");
+$(".move-row").css("display", "none");
 
 $("#t-cycle").val(0.2);
 $("#voltage").val(8);
@@ -78,6 +79,7 @@ $("#max-voltage").on("input", function() {
   angle = $("#input-angle").val();
   setArrow(angle);
 });
+
 function adjustChartOnAngleChange(alpha) {
   var tc = $("#t-cycle").val();
   var v = $("#voltage").val();
@@ -199,26 +201,78 @@ $(".rotate").click(function() {
 $(".stop").click(function() {
   clearInterval(intervalId);
 });
-
+var mouseActivated = false;
 $("input[type=radio][name=btnradio]").change(function() {
   clearInterval(intervalId);
   if (this.value == "angle") {
     $(".adjust-row").css("display", "");
     $(".rotation-row").css("display", "none");
+    $(".move-row").css("display", "none");
     $("#input-angle").val(angle);
     $("#input-angle").prop("disabled", false);
     $("#t-cycle").prop("disabled", false);
     $("#voltage").prop("disabled", false);
     $("#max-voltage").prop("disabled", false);
+    mouseActivated = false;
   } else if (this.value == "rotation") {
     $(".adjust-row").css("display", "none");
     $(".rotation-row").css("display", "");
+    $(".move-row").css("display", "none");
     $("#input-angle").prop("disabled", true);
     $("#t-cycle").prop("disabled", true);
     $("#voltage").prop("disabled", true);
     $("#max-voltage").prop("disabled", true);
+    mouseActivated = false;
+  } else if (this.value == "drag") {
+    $(".adjust-row").css("display", "none");
+    $(".rotation-row").css("display", "none");
+    $(".move-row").css("display", "");
+    $("#input-angle").prop("disabled", true);
+    $("#t-cycle").prop("disabled", true);
+    $("#voltage").prop("disabled", true);
+    $("#max-voltage").prop("disabled", true);
+    mouseActivated = true;
   }
 });
-setTimeout(function(){
+setTimeout(function() {
   setArrow(angle);
-},1000);
+}, 1000);
+
+var mouseX, mouseY, dx, dy, a;
+var circle = $("#circle");
+var circleX = circle.offset().left + (circle.width() / 2);
+var circleY = circle.offset().top + (circle.height() / 2);
+
+document.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+    var touch = e.touches[0];
+    dx = touch.pageX - circleX;
+    dy = touch.pageY - circleY;
+    onMoveCursorOrTouch();
+}, false);
+$(document).mousemove(function(e) {
+  mouseX = e.pageX;
+  mouseY = e.pageY;
+  dx = mouseX - circleX;
+  dy = mouseY - circleY;
+  onMoveCursorOrTouch();
+});
+function onMoveCursorOrTouch(){
+  if(Math.abs(dx)>(50 + circle.width()/2)  ||
+     Math.abs(dy)>(50 + circle.height()/2) ||
+     !mouseActivated) return;
+
+  a = Math.atan(dy/dx) * (180 / Math.PI);
+  if(dx>0 && dy<0){ // 1st quarter
+    a *= -1;
+  }else if(dx<0 && dy<0){ // 2nd quarter
+    a = 180 - a;
+  }else if(dx<0 && dy>0){ // 3rd quarter
+    a = (-1*a) + 180;
+  }else if(dx>0 && dy>0){ // 4th quarter
+    a = 360 - a;
+  }
+  angle = a.toFixed(1);
+  $("#input-angle").val(angle);
+  setArrow(angle);
+}
