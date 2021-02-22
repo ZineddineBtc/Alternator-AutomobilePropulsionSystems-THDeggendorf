@@ -248,20 +248,28 @@ document.addEventListener("touchmove", function(e) {
     var touch = e.touches[0];
     dx = touch.pageX - circleX;
     dy = touch.pageY - circleY;
-    onMoveCursorOrTouch();
+    onMoveCursorOrTouch("touch");
 }, false);
 $(document).mousemove(function(e) {
   mouseX = e.pageX;
   mouseY = e.pageY;
   dx = mouseX - circleX;
   dy = mouseY - circleY;
-  onMoveCursorOrTouch();
+  onMoveCursorOrTouch("move");
 });
-function onMoveCursorOrTouch(){
+function onMoveCursorOrTouch(type){
   if(Math.abs(dx)>(50 + circle.width()/2)  ||
      Math.abs(dy)>(50 + circle.height()/2) ||
-     !mouseActivated) return;
-
+     !mouseActivated){
+      if(type === "touch"){
+        $("body").removeClass("lock-screen");
+      }
+      return;
+  }else{
+    if(type === "touch"){
+      $("body").addClass("lock-screen");
+    }
+  }
   a = Math.atan(dy/dx) * (180 / Math.PI);
   if(dx>0 && dy<0){ // 1st quarter
     a *= -1;
